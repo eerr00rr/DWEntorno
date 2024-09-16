@@ -2,7 +2,7 @@ function ejer1() {
     let resultado = 1;
     let num = prompt('Introduzca un numero entero:');
 
-    for(let i = num; i > 1; i--) {
+    for(let i = num; i > 2; i--) {
         resultado *= i;
     }
     alert('Factorial de ' + num + ' es: ' + resultado);
