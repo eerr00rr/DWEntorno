@@ -58,9 +58,11 @@ function ejer5() {
 }
 
 function ejer6() {
+    let resultado = '';
     for (let i = 1; i <= 500; i++) {
-        let resultado = (i % 4 == 0) ? i + ' (Multiplo de 4)' :
-         (i % 9 == 0) ? i + ' (Multiplo de 9)' : i;
+        resultado = `${i}`;
+        if (i % 4 == 0) {resultado += ' (Multiplo de 4)'}
+        if (i % 9 == 0) {resultado += ' (Multiplo de 9)'}
 
         document.write(resultado + '<br>');
 

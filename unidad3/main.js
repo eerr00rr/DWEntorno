@@ -76,12 +76,47 @@ function ejer3() {
     }
 }
 
+/* Define a function that displays information about a string of text that is passed
+ as an argument. The function should check whether it consists of only
+  uppercase, lowercase, or letters uppercase and lowercase
+*/
 function ejer4() {
+    let input = prompt('Dame string');
 
+    stringInfo(input);
+
+    function stringInfo(str)  {
+        if (str === str.toUpperCase()) {
+            alert('El string ' + str + ' es en mayusculas');
+        } else if (str === str.toLowerCase()) {
+            alert('El string ' + str + ' es en minusuculas');
+        } else {
+            alert('El string ' + str + ' tiene mayuscualas y minusculas');
+        }
+    }
 }
 
 function ejer5() {
+    let input = prompt('Dame un string');
 
+    function isPalindrome(str) {
+        let rawStr = str.replaceAll(' ', '').toLowerCase();
+
+        let end = rawStr.length - 1;
+        for (let i = 0; i < end; i++) {
+            if (rawStr[i] !== rawStr[end]) {
+                return false;
+            }    
+            end--;
+        }
+        return true;
+    }
+
+    if (isPalindrome(input)) {
+        alert('Es Palindromo');
+    } else {
+        alert('No es Palindromo');
+    }
 }
 
 function ejer6() {
