@@ -116,7 +116,19 @@ function ejer5() {
 }
 
 function ejer6() {
+    setInterval(contar, 1000);
+    let array = [];
+    let iterator = 5;
     
+    function contar() {
+        if (iterator === -1) {
+            document.write(array);
+            clearInterval();
+        } else {
+            array.push(prompt('escribe algo'));
+            iterator--;
+        }
+    }
 }
 
 function ejer7() {
