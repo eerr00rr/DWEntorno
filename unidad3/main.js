@@ -76,10 +76,6 @@ function ejer3() {
     }
 }
 
-/* Define a function that displays information about a string of text that is passed
- as an argument. The function should check whether it consists of only
-  uppercase, lowercase, or letters uppercase and lowercase
-*/
 function ejer4() {
     let input = prompt('Dame string');
 
@@ -120,15 +116,44 @@ function ejer5() {
 }
 
 function ejer6() {
-
+    
 }
 
 function ejer7() {
+    let resultados = [];
+    let opciones = ['1', 'X', '2'];
 
+    for (let i = 0; i < 14; i++) {
+        let aleatorio = opciones[Math.floor(Math.random() * opciones.length)];
+        resultados.push(aleatorio);
+    }
+
+    alert(resultados);
 }
 
 function ejer8() {
+    let resultados = [];
+    let opciones = ['1', 'X', '2'];
 
+    function aleatorio() {
+        let probabilidades = [0.6, 0.3, 0.1];
+        let numAleatorio = Math.random();
+        let acumulador = 0;
+
+        for (let i = 0; i < probabilidades.length; i++) {
+            acumulador += probabilidades[i];
+            if (numAleatorio <= acumulador) {
+                return i; 
+            }        
+        }
+    }
+
+    for (let i = 0; i < 14; i++) {
+        let aleatorioResultado = opciones[aleatorio()];
+        resultados.push(aleatorioResultado);
+    }
+
+    alert(resultados);
 }
 
 function ejer9() {
