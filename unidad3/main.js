@@ -58,7 +58,6 @@ function ejer3() {
         alert('el dno tiene que tener una letra y ocho numeros');
     }
 
-    let letra = dni.slice(-1).toUpperCase; 
     let numeros = dni.slice(0, -1);
 
     if (isNaN(numeros) || numeros.length != 8) {
@@ -66,8 +65,10 @@ function ejer3() {
         return;
     }
 
-    let posLetra = numeros % 23;
+    let posLetra = parseInt(numeros) % 23;
     let letraCorrecta = letras[posLetra];
+
+    let letra = dni.slice(-1).toUpperCase(); 
 
     if (letra === letraCorrecta) {
         alert('DNI correcta');
@@ -116,17 +117,53 @@ function ejer5() {
 }
 
 function ejer6() {
-    setInterval(contar, 1000);
-    let array = [];
-    let iterator = 5;
-    
-    function contar() {
-        if (iterator === -1) {
-            document.write(array);
-            clearInterval();
+    let arrayDNIs = [];
+
+    let letras = [
+      "T", "R", "W", "A", "G", "M", "Y", 
+      "F", "P", "D", "X", "B", " N", "J", "Z", "S",
+      "Q", "V", "H", "L", "C", "K", "E"
+    ];
+
+    let timeout = setTimeout(pedirDNI, 10000); 
+
+    function pedirDNI() {
+        let dni = prompt('Introduzca DNI');
+        
+        if (dni === '-1') {
+            clearTimeout(timeout);
+            console.log(arrayDNIs);
+        } 
+        if (probarDNI(dni)) {
+            arrayDNIs.push(dni);
         } else {
-            array.push(prompt('escribe algo'));
-            iterator--;
+            clearTimeout(timeout);
+            console.log(arrayDNIs);
+        }
+    }
+
+    function probarDNI(dni) {
+        if (dni.length !== 9) {
+            alert('el dni tiene que tener una letra y ocho numeros');
+            return false;
+        } else {
+            let letra = dni.slice(-1).toUpperCase(); 
+            let numeros = dni.slice(0, -1);
+        
+            if (isNaN(numeros) || numeros.length != 8) {
+                alert('Falta de numeros');
+                return false;
+            } else {
+                let posLetra = numeros % 23;
+                let letraCorrecta = letras[posLetra];
+
+                if (letra === letraCorrecta) {
+                    return true;
+                } else {
+                    alert('Letra no es correcta');
+                    return flase;
+                }
+            }
         }
     }
 }
@@ -169,9 +206,40 @@ function ejer8() {
 }
 
 function ejer9() {
+    function pi2Decimals() {
+        return Math.PI.toFixed(2);
+    }
 
+    alert(pi2Decimals());
 }
 
 function ejer10() {
+    let array = [];
 
+    for (let i = 0; i <= 100; i++) {
+        let nuevoNum = false;
+
+        while (nuevoNum === false) {
+            let aleatorio = numAleatorio();
+            let numEncontrado = false;
+
+            array.forEach(element => {
+                if (aleatorio === element) {
+                    numEncontrado = true;
+                }
+            });
+
+            if (!numEncontrado) {
+                array.push(aleatorio);
+                nuevoNum = true;
+            }
+        }
+    }
+
+    array = array.sort(function(a,b) {return a - b});
+    alert(array);
+
+    function numAleatorio() {
+        return Math.floor(Math.random() * 1000) + 1; 
+    }
 }
