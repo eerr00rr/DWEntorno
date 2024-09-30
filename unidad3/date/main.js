@@ -98,12 +98,57 @@ function ejer4() {
     }
 }
 
-function ejer5() {
-    let clock = new Date();
-    let hours = clock.getHours();
-    let minutes = clock.getMinutes();
-    let seconds = clock.getSeconds();
-    let date = clock.toLocaleDateString(hour12=false); 
+let button_stop = document.createElement('button');
+let button_resume = document.createElement('button');
 
-    document.write(date);
+button_stop.setAttribute("type", "button");
+button_resume.setAttribute("type", "button");
+
+button_stop.innerHTML = 'stop';
+button_resume.innerHTML = 'resume';
+
+function ejer5() {
+
+    let interval = setInterval(toString, 1000);
+
+    function toString() {
+        if (seconds_timer === 0) {
+            clearInterval(interval);
+            alert('Countdown terminado adios');
+            return;
+        }
+        parafo.innerText = `${update_clock()} timer: ${countdown(stop)}`;
+    }
+
+    function update_clock() {
+        let clock = new Date();
+        let date = clock.toLocaleDateString(hour12=false); 
+        let hours = clock.getHours();
+        let minutes = clock.getMinutes();
+        let seconds = clock.getSeconds();
+
+        return `${date} ${hours}:${minutes}:${seconds}`;
+    }
+
+    function countdown(stop) {
+        if (stop) {
+            return seconds_timer;
+        }
+        seconds_timer--;
+        return seconds_timer;
+    }
+
+    let stop = false;
+    let seconds_timer = parseInt(prompt('Cuantos segundos quieres contar atras')) + 1;
+    
+
+    document.body.appendChild(button_stop);
+    document.body.appendChild(button_resume);
+
+    button_stop.onclick = function() {
+        stop = true;    
+    };
+    button_resume.onclick = function() {
+        stop = false;    
+    };
 }
