@@ -9,7 +9,7 @@ function ejer1() {
 
 function ejer2() {
     input = document.getElementById('prompt').value;
-
+    input = input.replaceAll(" ", '');
     let new_string = '';
     for (let i = 0; i < input.length; i++) {
         new_string += `${input[i]}-`; 
@@ -58,7 +58,7 @@ function ejer5() {
     let vocales = [
         'a', 'e', 'i', 'o', 'u'
     ];
-
+ 
     let sin_acentos = input.normalize("NFD");
     for (let i = 0; i < vocales.length; i++) {
         if (sin_acentos.includes(vocales[i])) {
