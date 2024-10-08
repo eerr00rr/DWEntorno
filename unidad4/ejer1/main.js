@@ -15,7 +15,8 @@ function Cliente(nombre, direccion, telefono, nif) {
         this.cliente = cliente;
         this.elementos = elementos;
         this.informacion = {
-            "iva":16,
+            'base': 0,
+            "iva":11,
             "total":0,
             "formaPago":"efectivo" };
     };
