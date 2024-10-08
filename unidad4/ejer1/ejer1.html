@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function Cliente(nombre, direccion, telefono, nif) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.nif = nif;
+    }
+
+    function Elemento(descripcion, cantidad, precio) {
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    function Factura(cliente, elementos) {
+        this.cliente = cliente;
+        this.elementos = elementos;
+        this.informacion = {
+            'base': 0,
+            "iva":11,
+            "total":0,
+            "formaPago":"efectivo" };
+    };
+
+    Factura.prototype.empresa = {
+        "nombre": "Empresaaaaaaa",
+        "informacion extra": "sadfasdfa"
+    };
+
+    Factura.prototype.calcularTotal = function() {
+        for (let i = 0; i < this.elementos.length; i++) {
+            this.informacion.base += this.elementos[i].cantidad * this.elementos[i].precio;
+        }
+        this.informacion.total = this.informacion.base * this.informacion.iva;
+    }
+
+    Factura.prototype.mostrarTotal = function() {
+        this.calcularTotal();
+        alert(`total es ${this.informacion.total} euros`);
+    }
+
+    let cliente = new Cliente('primer cliente', 'asdfasdf', '3452345', 'asdfasdf');
+    let elementos = [
+        new Elemento('e1', '4', '4'),
+        new Elemento('e2', '2', '8'),
+        new Elemento('e3', '1', '4'),
+        new Elemento('e4', '3', '45')
+    ];
+    let factura = new Factura(cliente, elementos);
+    factura.mostrarTotal();
+</script>
+<body>
+</body>
+</html>
