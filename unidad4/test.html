@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Factura(idFactura, idCliente) {
+            this.idFactura = idFactura;
+            this.idCliente = idCliente;
+        }
+        Factura.prototype.fnMuestraCliente = function () {
+            alert(this.idCliente);
+        }
+        Factura.prototype.fnMuestraId = function () {
+            alert(this.idFactura);
+        }
+        function FacturaEspecial(idFactura, idCliente, iDescuento) {
+            Factura.call(this, idFactura, idCliente);
+            this.iDescuento = iDescuento;
+        }
+        FacturaEspecial.prototype = new Factura;
+    </script>
+</body>
+</html>
