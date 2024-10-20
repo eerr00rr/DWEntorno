@@ -1,64 +1,60 @@
-function mezclarImagenes() {
-    let set = new Set();
-    while (set.size < 16) {
-        let random = Math.floor(Math.random() * 16) + 1;
-        set.add(random);
-    }
-    return set;
-}
-
-function getAdjacent(idVacio) {
-    let poisciones = {
-        'arriba': `td_${idVacio - 4}`,
-        'abajo': `td_${idVacio + 4}`,
-        'izquierda': `td_${idVacio - 1}`,
-        'derecho': `td_${idVacio + 1}`,
-    }
-
-    for (const key in poisciones) {
-        if (condition) {
-            
-        }
-    }
-}
+const size = 4;
+let tabla;
+let imagenes;
+let vacioX, vacioY;
 
 function crearTabla() {
     let tabla = document.createElement('table');
 
-    let filas = 4;
-    let columnas = 4;
-
-    let imagenesMezcladas = Array.from(mezclarImagenes());
-    for (let fila = 0; fila < filas; fila++) {
+    let matrix = [];
+    for(let i = 0; i < size; i++) {
         let tr = document.createElement('tr');
-
-        for (let columna = 0; columna < columnas; columna++) {
-            let td = document.createElement('td');
-            let imagen = document.createElement('img');
-
-            let valor = imagenesMezcladas[fila * 4 + columna];
-            td.id = `td_${valor}`;
-            if (valor === 16) {
-                imagen.src = '../ArchivosEjercicios/imagenes/blanco.gif';
-                idVacio = td.id;
-            } else {
-                imagen.src = `../ArchivosEjercicios/imagenes/${valor}.gif`;
-            }
-            imagen.width = 100;
-
-            imagen.onclick = () => {
-                if (td.id === getAdjacent(idVacio)) {
-                    
-                }
-            };
-
-            td.appendChild(imagen);
-            tr.appendChild(td);
-        }
         tabla.appendChild(tr);
+        matrix[i] = [];
+        for (let j = 0; j < size; j++) {
+            let td = document.createElement('td');
+            let img = document.createElement('img');
+            img.src = imagenes[i][j];
+            tr.appendChild(td);
+            td.appendChild(img);
+            matrix[i][j] = td;
+        }
     }
     document.body.appendChild(tabla);
+    return matrix;
 }
 
-let idVacio;
-crearTabla();
+function mezclarImagenes() {
+    let set = new Set();
+    while (set.size < 16) {
+        let random = Math.floor(Math.random() * 16);
+        set.add(random);
+    }
+    let array = Array.from(set);
+
+    
+}
+
+function crearImagenes() {
+    vacioX = vacioY = size - 1;
+    let matrix = [];
+    counter = 1;
+    for (let i = 0; i < size; i++) {
+        matrix[i] = [];
+        for (let j = 0; j < size; j++) {
+            let valor = `../ArchivosEjercicios/imagenes/${counter}.gif`;
+            matrix[i][j] = valor;
+            counter++;
+        }
+    }
+    matrix[vacioX][vacioY] = '../ArchivosEjercicios/imagenes/blanco.gif';
+    return matrix;
+}
+
+
+function inicializarJuego() {
+    imagenes = crearImagenes();
+    tabla = crearTabla();
+}
+
+inicializarJuego();
