@@ -90,8 +90,8 @@ while (balls.length < 25) {
       // away from the edge of the canvas, to avoid drawing errors
       random(0 + size,width - size),  //position x
       random(0 + size,height - size), //position y
-      random(-7,7),                   //velocity x
-      random(-7,7),                   //velocity y
+      random(-70,70),                   //velocity x
+      random(-70,70),                   //velocity y
       randomRGB(),                    // color random
       size,                           // size
       random(10, 30)                  // ttl between 10 and 30 seconds
@@ -115,7 +115,10 @@ function loop() {
          balls.splice(index, 1);
       }
    }
-
+   if (balls.length === 1) {
+      alert('Juego terminado');
+      return;
+   }
    requestAnimationFrame(loop);
 }
 

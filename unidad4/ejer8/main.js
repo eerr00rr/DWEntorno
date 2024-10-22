@@ -3,6 +3,7 @@ Object.prototype.implementa = function(nombreMetedo) {
 }
 
 const object = {
+    string: 'asdfasdf',
     funcionRandom: function() {
         alert('sdfasdf');
     },
