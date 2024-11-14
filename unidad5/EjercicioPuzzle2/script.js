@@ -1,8 +1,8 @@
 const TIME_START = new Date();
 const CELLS = 16;
 let aux;
-let arrayImagenes = [];
 let posBlanco;
+let arrayImagenes = [];
 
 function draw() {
     for (let i = 0; i < 16; i++) {
@@ -50,7 +50,32 @@ function mover(event) {
         arrayImagenes[posImagenClicado] = arrayImagenes[posBlanco];
         arrayImagenes[posBlanco] = aux;
         draw();
+        comprobar();
     }
+}
+
+function comprobar() {
+    let posicionesCorrectas = 0;
+    for (let i = 0; i < CELLS; i++) {
+        let td = document.getElementById(`${i + 1}`);
+        let numeroImagen = arrayImagenes[i].split('.').shift();
+
+        if (td.id === numeroImagen) {
+            posicionesCorrectas++;
+        }
+    }
+    if (posicionesCorrectas === 15) {
+        let tiempo = new Date();
+        alert(`Has terminado el juego en ${tiempo.getMinutes() - TIME_START.getMinutes()}min ${tiempo.getSeconds() - TIME_START.getSeconds()}seg`);
+    }
+}
+
+function casiOrdenar() {
+    arrayInit();
+    aux = arrayImagenes[14];
+    arrayImagenes[14] = arrayImagenes[15];
+    arrayImagenes[15] = aux;
+    draw();
 }
 
 function init() {
