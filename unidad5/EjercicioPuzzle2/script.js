@@ -10,6 +10,9 @@ function draw() {
         let img = td.querySelector('img');
 
         img.src = `imagenes/${arrayImagenes[i]}`;
+        if (arrayImagenes[i] === 'blanco.gif') {
+            posBlanco = i;
+        }
     }
 }
 
@@ -31,9 +34,23 @@ function arrayInit() {
     posBlanco = 15;
 }
 
-function test(event) {
-    console.log(event.target);
+function mover(event) {
+    let imagenClicado = event.target.src;
+    let imagenSrc = imagenClicado.split('/').pop();
+
+    let posImagenClicado = arrayImagenes.indexOf(imagenSrc);
+
+    let izquierdo = !(posBlanco + 1 % 4 === 1) && posBlanco - 1 === posImagenClicado;
+    let derecho = !(posBlanco + 1 % 4 === 0) && posBlanco + 1 === posImagenClicado;
+    let arriba = posBlanco - 4 === posImagenClicado;
+    let abajo = posBlanco + 4 === posImagenClicado;
     
+    if (izquierdo || derecho || arriba || abajo) {
+        aux = arrayImagenes[posImagenClicado];
+        arrayImagenes[posImagenClicado] = arrayImagenes[posBlanco];
+        arrayImagenes[posBlanco] = aux;
+        draw();
+    }
 }
 
 function init() {
