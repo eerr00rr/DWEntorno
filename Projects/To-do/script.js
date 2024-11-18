@@ -1,11 +1,19 @@
-const boton = document.getElementById('add-task');
-const ul = document.getElementById('task-list');
+const boton = document.getElementById("addtodo");
+const ul = document.getElementById("list");
 
-boton.addEventListener('click', () => {
-    let task = document.getElementById('new-task').value;
+boton.addEventListener("click", () => {
+  let input = document.getElementById("todo").value;
 
-    let li = document.createElement('li');
-    li.textContent = task;
+  let li = document.createElement("li");
+  li.className = "list-group-item";
 
-    ul.appendChild(li);
+  let div = document.createElement("div");
+  div.className = "container bg-danger";
+  li.appendChild(div);
+
+  let input_radio = document.createElement("input");
+  input_radio.type = "radio";
+  div.appendChild(input_radio);
+
+  ul.appendChild(li);
 });
