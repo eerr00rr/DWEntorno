@@ -1,10 +1,17 @@
-let c = document.getElementsByClassName('limpiar')[0];
-let pantalla = document.getElementsByClassName('pantalla')[0];
+let c = document.querySelector('.limpiar');
+let pantalla = document.querySelector('.pantalla');
 let numeros = document.querySelectorAll('.numero');
 let operadores = document.querySelectorAll('.operador');
-let punto = document.getElementsByClassName('punto')[0];
+let punto = document.querySelector('.punto');
 
 let expression = [];
+
+document.addEventListener('keypress', (event) => {
+    if (Number.parseInt(event.key) || event.key === '+' || event.key === '-' || event.key === '*' ||
+    event.key === '/' ||event.key === '.' || event.key === '=' || event.key === "Enter") {
+        pulsada(event.key);
+    }
+});
 
 function pulsada(char) {
     let string = '';
@@ -14,15 +21,20 @@ function pulsada(char) {
         expression.push(char);
     }
     expression.forEach((element) => {
-        if (element === '+' || element === '*' || element === '/' || element === '-') {
+        if (
+            element === '+' ||
+            element === '*' ||
+            element === '/' ||
+            element === '-'
+        ) {
             string += ` ${element} `;
-        } else if (element === '=') {
+        } else if (element === '=' || element === "Enter") {
             expression.pop(); // removes the '='
             try {
                 string = eval(string);
                 expression = [];
                 expression.push(string);
-            } catch(error) {
+            } catch (error) {
                 if (error instanceof SyntaxError) {
                     alert('Error: invalid expression');
                 }
@@ -51,12 +63,24 @@ function modificacion(char) {
 
 function marcaDeNumeros() {
     numeros.forEach((element) => {
-        element.style = 'background-color: blue; color: white;'
+        element.style = 'background-color: blue; color: white;';
     });
 }
 
 function marcaDeOperadores() {
     operadores.forEach((element) => {
-        element.style = 'background-color: red; color: white;'
+        element.style = 'background-color: red; color: white;';
+    });
+}
+
+function resetGeneral() {
+    c.style = '';
+    punto.style = '';
+    pantalla.style = '';
+    numeros.forEach((element) => {
+        element.style = '';
+    });
+    operadores.forEach((element) => {
+        element.style = '';
     });
 }
