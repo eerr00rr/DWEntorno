@@ -123,8 +123,11 @@
         let opcionSeleccionado;
         let precio = document.getElementById('precio');
         let tabla = document.getElementById('tabla');
+        let tbody = tabla.childNodes[3];
+        let tdTotal = tabla.childNodes[5].lastChild.childNodes[3];
         let unidades = document.getElementById('unidades');
         let importe = document.getElementById('importe');
+        let id = 0;
 
         producto.addEventListener('change', () => {
             opcionSeleccionado = producto.options[producto.selectedIndex];
@@ -148,6 +151,7 @@
                         break;
                     case 'borrar_cesta':
                         console.log('borrar');
+                        borrarCesta();
                         break;
                 }
             });
@@ -182,45 +186,56 @@
 
             nuevo_producto.value = precio2;
             nuevo_producto.textContent = nombre;
-
+            nuevo_producto.id = `opcion${id}`; 
+            id++;
             producto.appendChild(nuevo_producto);
 
             mostrar();
-        }
-
-        function trSeleccionado() {
-            let array = [];
-            let fila = event.target.parentNode;
-            for (let i = 0; i < 5; i++) {
-                fila.cellIndex
-            }
-            console.log(fila);
         }
 
         function anyadirACesta() {
             if (opcionSeleccionado === undefined || opcionSeleccionado.index === 0) {
                 return;
             }
-            let tbody = tabla.childNodes[3];
             let tr = document.createElement('tr');
-
-            tr.addEventListener('click', trSeleccionado);
-
+            
             let info = [];
             let cesta_producto = opcionSeleccionado.textContent; 
             let cesta_precio = precio.value; 
             let cesta_unidades = unidades.value; 
-            let cesta_importe = importe.value; 
-            info.push(cesta_producto, cesta_precio, cesta_unidades, cesta_importe);
-
+            if (!esNumero(cesta_precio) || !esNumero(cesta_unidades)) {
+                return
+            }
+            let cesta_importe = parseFloat(cesta_precio) * parseFloat(cesta_unidades); 
+            let cesta_quitar = "X";
+            info.push(cesta_producto, cesta_precio, cesta_unidades, cesta_importe, cesta_quitar);
+            
             for (let i = 0; i < info.length; i++) {
                 let td = document.createElement('td');
                 td.textContent = info[i];
                 tr.appendChild(td);
+                if (i === 4) {
+                    td.addEventListener('click', () => {
+                        event.target.parentNode.remove();
+                    });
+                }
             }
             tbody.appendChild(tr);
+            sumarImporte();
         }
 
+        function sumarImporte() {
+            let filas = tbody.childNodes;
+            let suma = 0.00;
+            for (let i = 1; i < filas.length; i++) {
+                suma += parseFloat(filas[i].childNodes[3].textContent);
+            }
+            tdTotal.textContent = suma;
+        }
 
+        function borrarCesta() {
+            tbody.innerHTML = '';
+            tdTotal.textContent = '0.00';
+        }
 </script>
 </body></html>
