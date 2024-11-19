@@ -190,11 +190,11 @@
 
         function trSeleccionado() {
             let array = [];
-            let fila = event.target;
+            let fila = event.target.parentNode;
             for (let i = 0; i < 5; i++) {
                 fila.cellIndex
             }
-            console.log(event.target);
+            console.log(fila);
         }
 
         function anyadirACesta() {
