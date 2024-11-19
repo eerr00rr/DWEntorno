@@ -127,9 +127,11 @@
         let importe = document.getElementById('importe');
 
         producto.addEventListener('change', () => {
-            console.log(producto);
-            opcionSeleccionado = producto.options[selectElement.selectedIndex];
-            console.log(opcionSeleccionado);
+            opcionSeleccionado = producto.options[producto.selectedIndex];
+            if (opcionSeleccionado.index === 0) {
+                precio.value = '';
+                return;
+            }
             precio.value = producto.value;            
         });
         
@@ -138,7 +140,7 @@
                 switch (event.target.id) {
                     case 'anyadir_producto':
                         console.log('producto');
-                        comprobarProducto();
+                        anyadirProducto();
                         break;
                     case 'anyadir_aCesta':
                         console.log('cesta');
@@ -162,36 +164,50 @@
             document.getElementById('precio2').value = '';
         }
 
-        function comprobarProducto() {
-            let nombre = document.getElementById('producto2').value;
-            let precio2 = document.getElementById('precio2').value;
-
-            if (isNaN(precio2)) {
-                alert('El precio del producto debe ser un numero');
-                return;
+        function esNumero(x) {
+            if (isNaN(x)) {
+                alert(`${x} no es un numero valido`);
+                return false;
             }
-            anyadirProducto(nombre, precio2);
+            return true;
         }
 
-        function anyadirProducto(nom, pre) {
+        function anyadirProducto() {
+            let nombre = document.getElementById('producto2').value;
+            let precio2 = document.getElementById('precio2').value;
+            if (!esNumero(precio2)) {
+                return;
+            }
             let nuevo_producto = document.createElement('option');
 
-            nuevo_producto.value = pre;
-            nuevo_producto.textContent = nom;
-            nuevo_producto.id = nom;
+            nuevo_producto.value = precio2;
+            nuevo_producto.textContent = nombre;
 
             producto.appendChild(nuevo_producto);
 
             mostrar();
         }
 
-        function anyadirACesta() {
+        function trSeleccionado() {
+            let array = [];
+            let fila = event.target;
+            for (let i = 0; i < 5; i++) {
+                fila.cellIndex
+            }
+            console.log(event.target);
+        }
 
+        function anyadirACesta() {
+            if (opcionSeleccionado === undefined || opcionSeleccionado.index === 0) {
+                return;
+            }
             let tbody = tabla.childNodes[3];
             let tr = document.createElement('tr');
 
+            tr.addEventListener('click', trSeleccionado);
+
             let info = [];
-            let cesta_producto = producto.textContent; 
+            let cesta_producto = opcionSeleccionado.textContent; 
             let cesta_precio = precio.value; 
             let cesta_unidades = unidades.value; 
             let cesta_importe = importe.value; 
