@@ -79,7 +79,7 @@
             <h1>Alta de articulo : </h1>
             <p>Producto&nbsp;<input type="text" id="producto2"></p>
             <p>Precio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="precio2"></p>
-            <p><button class="verde" type="button">Añadir Producto</button></p>
+            <p><button class="verde" type="button" id="anyadir_producto">Añadir Producto</button></p>
             <p onclick="mostrar()" style="text-align: right;color:red"><b>X</b></p>
         </div>
         <div style="margin:10px">
@@ -89,7 +89,7 @@
             <input type="text" id="precio">
             <input type="text" id="unidades">
             <input type="text" id="importe">
-            <button class="verde" type="button">Añadir a la cesta</button>
+            <button class="verde" type="button" id="anyadir_aCesta">Añadir a la cesta</button>
         </div>
         <hr>
         <div class="container">
@@ -110,7 +110,7 @@
                     <tfoot id="tfoot"><tr><td></td><td></td><td>Total</td><td align="right">0.00</td><td style="width:15px"></td></tr></tfoot>
                 </table>
                 <div class="form-group">
-                    <button type="button" class="btn btn-danger">Borrar cesta</button>
+                    <button type="button" class="btn btn-danger" id="borrar_cesta">Borrar cesta</button>
                 </div>
 
             </div>
@@ -118,17 +118,93 @@
     </div>
 
 <script>
+        let botones = document.querySelectorAll('button');
+        let producto = document.getElementById('producto');
+        let opcionSeleccionado;
+        let precio = document.getElementById('precio');
+        let tabla = document.getElementById('tabla');
+        let unidades = document.getElementById('unidades');
+        let importe = document.getElementById('importe');
 
-
+        producto.addEventListener('change', () => {
+            console.log(producto);
+            opcionSeleccionado = producto.options[selectElement.selectedIndex];
+            console.log(opcionSeleccionado);
+            precio.value = producto.value;            
+        });
+        
+        botones.forEach(element => {
+            element.addEventListener('click', (event) => {
+                switch (event.target.id) {
+                    case 'anyadir_producto':
+                        console.log('producto');
+                        comprobarProducto();
+                        break;
+                    case 'anyadir_aCesta':
+                        console.log('cesta');
+                        anyadirACesta();
+                        break;
+                    case 'borrar_cesta':
+                        console.log('borrar');
+                        break;
+                }
+            });
+        });
         // Muestra y oculta la division de alta de productos
         function mostrar() {
             var e = document.getElementById("alta"); //recoge todo el elemento alta
             if (e.style.display == "block") { //si se ve
-                e.style.display = "none" //que no se vea
+                e.style.display = "none"; //que no se vea
             } else { //si no
                 e.style.display = "block"; //que se vea
             }
-
+            document.getElementById('producto2').value = '';
+            document.getElementById('precio2').value = '';
         }
+
+        function comprobarProducto() {
+            let nombre = document.getElementById('producto2').value;
+            let precio2 = document.getElementById('precio2').value;
+
+            if (isNaN(precio2)) {
+                alert('El precio del producto debe ser un numero');
+                return;
+            }
+            anyadirProducto(nombre, precio2);
+        }
+
+        function anyadirProducto(nom, pre) {
+            let nuevo_producto = document.createElement('option');
+
+            nuevo_producto.value = pre;
+            nuevo_producto.textContent = nom;
+            nuevo_producto.id = nom;
+
+            producto.appendChild(nuevo_producto);
+
+            mostrar();
+        }
+
+        function anyadirACesta() {
+
+            let tbody = tabla.childNodes[3];
+            let tr = document.createElement('tr');
+
+            let info = [];
+            let cesta_producto = producto.textContent; 
+            let cesta_precio = precio.value; 
+            let cesta_unidades = unidades.value; 
+            let cesta_importe = importe.value; 
+            info.push(cesta_producto, cesta_precio, cesta_unidades, cesta_importe);
+
+            for (let i = 0; i < info.length; i++) {
+                let td = document.createElement('td');
+                td.textContent = info[i];
+                tr.appendChild(td);
+            }
+            tbody.appendChild(tr);
+        }
+
+
 </script>
 </body></html>
