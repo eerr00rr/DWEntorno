@@ -18,7 +18,7 @@ document.addEventListener('keypress', (event) => {
     numero.textContent = `Caracter [${event.code.charCodeAt(0)}]`;
     teclado.style.backgroundColor = '#cce6ff';
 });
-document.addEventListener('mousemove', (event) => {
+document.addEventListener('mousemove', () => {
     raton.style.backgroundColor = 'white';
     teclado.style.backgroundColor = 'white';
 });
