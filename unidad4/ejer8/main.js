@@ -1,10 +1,10 @@
-Object.prototype.implementa = function(nombreMetedo) {
+Object.prototype.implementa = function (nombreMetedo) {
     return typeof this[nombreMetedo] === 'function';
 }
 
 const object = {
     string: 'asdfasdf',
-    funcionRandom: function() {
+    funcionRandom: function () {
         alert('sdfasdf');
     },
     atributo: 'asdfas'

@@ -84,12 +84,17 @@
               });
           }
           
+          function Producto(precio) {
+            this.precio = precio;
+            this.cantidad = 1;
+          }
+
           function anyadirProductoAlCarrito() {
             const marcador = parseInt(event.target.getAttribute('marcador'));
             const producto = baseDeDatos.find(item => item.id === marcador);
 
             if (!carritoProductos[marcador]) {
-                carritoProductos[marcador] = {...producto, cantidad: 1};
+                carritoProductos[marcador] = new Producto(producto.precio);
 
                 const li = document.createElement('li');
                 li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');

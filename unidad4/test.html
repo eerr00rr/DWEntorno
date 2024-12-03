@@ -7,21 +7,18 @@
 </head>
 <body>
     <script>
-        function Factura(idFactura, idCliente) {
-            this.idFactura = idFactura;
-            this.idCliente = idCliente;
+        function Cat(name, age, type) {
+            this.name = name;
+            this.age = age;
+            this.type = type;
         }
-        Factura.prototype.fnMuestraCliente = function () {
-            alert(this.idCliente);
-        }
-        Factura.prototype.fnMuestraId = function () {
-            alert(this.idFactura);
-        }
-        function FacturaEspecial(idFactura, idCliente, iDescuento) {
-            Factura.call(this, idFactura, idCliente);
-            this.iDescuento = iDescuento;
-        }
-        FacturaEspecial.prototype = new Factura;
+
+        Cat.prototype.meow = function() {
+            alert(`cat ${this.name} says meow`);
+        };
+
+        let cat1 = new Cat('jake', 12, 'weird');
+        cat1.meow();
     </script>
 </body>
 </html>

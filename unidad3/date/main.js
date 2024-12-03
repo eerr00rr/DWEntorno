@@ -3,14 +3,15 @@ document.body.appendChild(parafo);
 
 function ejer1() {
     let date = new Date();
+
     let day = date.getDate();
     let month = date.getMonth();
     let year = date.getFullYear();
     let tiempo = `${date.getHours()}:${date.getMinutes()}`;
 
     let dateFinal = `Hui és dimarts, ${day} de ${month} de ${year} i són les ${tiempo} hores`;
-    
-    parafo.innerHTML = dateFinal;    
+
+    parafo.textContent = dateFinal;
 }
 
 function ejer2() {
@@ -28,22 +29,19 @@ function ejer2() {
     }
 
     let fin = new Date().getSeconds();
-    
-    console.log(inicio);
-    console.log(fin);
 
     parafo.innerHTML = `A introduir ${nombre} ${apellidos} ha tardat ${fin - inicio} segons`;
 }
 
 function ejer3() {
     let days_of_the_week = [
+        'Sunday',
         'Monday',
         'Tuesday',
         'Wednesday',
         'Thursday',
         'Friday',
-        'Saturday',
-        'Sunday'
+        'Saturday'
     ];
     let month = parseInt(prompt("Month:"));
     let year = parseInt(prompt("Year"));
@@ -52,7 +50,7 @@ function ejer3() {
         let last_day = new Date(year, month, 0).getDate();
 
         let days = [];
-        for (let day = 1; day <= last_day; day++){
+        for (let day = 1; day <= last_day; day++) {
             let day_name = days_of_the_week[new Date(year, month - 1, day).getDay()];
             let string = ` ${day} (${day_name})`
             days.push(string);
@@ -76,16 +74,16 @@ function ejer3() {
 }
 
 function ejer4() {
-    let entrada = prompt('Introdunce fecha (yyyy-mm-dd');
-    let fecha = new Date(entrada);
+    let entrada = new Date(prompt('Introdunce fecha (yyyy-mm-dd'));
+    console.log(entrada);
 
-    if (isNaN(fecha)) {
+    if (isNaN(entrada)) {
         alert('fecha incorrecta');
     }
-    
-    let fecha30 = new_date(fecha, 30);
-    let fecha60 = new_date(fecha, 60);
-    let fecha90 = new_date(fecha, 90);
+
+    let fecha30 = new_date(entrada, 30);
+    let fecha60 = new_date(entrada, 60);
+    let fecha90 = new_date(entrada, 90);
 
     let resultado = `${fecha30}\n${fecha60}\n${fecha90}`;
 
@@ -122,7 +120,7 @@ function ejer5() {
 
     function update_clock() {
         let clock = new Date();
-        let date = clock.toLocaleDateString(hour12=false); 
+        let date = clock.toLocaleDateString(hour12 = false);
         let hours = clock.getHours();
         let minutes = clock.getMinutes();
         let seconds = clock.getSeconds();
@@ -140,15 +138,15 @@ function ejer5() {
 
     let stop = false;
     let seconds_timer = parseInt(prompt('Cuantos segundos quieres contar atras')) + 1;
-    
+
 
     document.body.appendChild(button_stop);
     document.body.appendChild(button_resume);
 
-    button_stop.onclick = function() {
-        stop = true;    
+    button_stop.onclick = function () {
+        stop = true;
     };
-    button_resume.onclick = function() {
-        stop = false;    
+    button_resume.onclick = function () {
+        stop = false;
     };
 }

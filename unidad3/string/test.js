@@ -1,73 +1,62 @@
-let input;
-let para = document.querySelector('p');
-
+var input;
+var para = document.querySelector('p');
 function ejer1() {
     input = document.querySelector('#prompt').value;
-
     para.innerHTML = input.toUpperCase();
 }
-
 function ejer2() {
     input = document.getElementById('prompt').value;
     input = input.replaceAll(" ", '');
-    let new_string = '';
-    for (let i = 0; i < input.length; i++) {
-        new_string += `${input[i]}-`;
+    var new_string = '';
+    for (var i = 0; i < input.length; i++) {
+        new_string += "".concat(input[i], "-");
     }
-
     para.innerHTML = new_string.slice(0, -1);
 }
-
 function ejer3() {
-    input = document.getElementById('prompt').value;
-    let vocales = [
+    input = String.toString(document.getElementById('prompt').value);
+    var vocales = [
         'a', 'e', 'i', 'o', 'u'
     ];
-
-    let sin_acentos = input.normalize();
-    let num_acentos = 0;
-    for (let i = 0; i < sin_acentos.length; i++) {
-        for (let j = 0; j < vocales.length; j++) {
+    var sin_acentos = input.normalize("NFD");
+    var num_acentos = 0;
+    for (var i = 0; i < sin_acentos.length; i++) {
+        for (var j = 0; j < vocales.length; j++) {
             if (sin_acentos[i] === vocales[j]) {
                 num_acentos++;
             }
         }
     }
-
-    alert(`la cadena '${input}' tiene ${num_acentos} acentos`);
+    alert("la cadena '".concat(input, "' tiene ").concat(num_acentos, " acentos"));
 }
-
 function ejer4() {
     input = document.getElementById('prompt').value;
-
     if (input.includes('(')) {
-        let start = input.indexOf('(');
-
+        var start = input.indexOf('(');
         if (input.includes(')')) {
-            let end = input.indexOf(')');
+            var end = input.indexOf(')');
             input = input.substring(start + 1, end);
-        } else {
+        }
+        else {
             input = input.substring(start + 1);
         }
     }
     para.innerHTML = input;
 }
-
 function ejer5() {
     input = document.getElementById('prompt').value;
-    let vocales = [
+    var vocales = [
         'a', 'e', 'i', 'o', 'u'
     ];
-
-    let sin_acentos = input.normalize("NFD");
-    for (let i = 0; i < vocales.length; i++) {
+    var sin_acentos = input.normalize("NFD");
+    for (var i = 0; i < vocales.length; i++) {
         if (sin_acentos.includes(vocales[i])) {
-            for (let j = 0; j < sin_acentos.length; j++) {
-                for (let k = 0; k < vocales.length; k++) {
+            for (var j = 0; j < sin_acentos.length; j++) {
+                for (var k = 0; k < vocales.length; k++) {
                     if (sin_acentos[j] === vocales[k]) {
                         primer_vocal = sin_acentos.charAt(sin_acentos[j]);
-                        alert(`El primer vocal en '${sin_acentos}' es '${vocales[k]}' en la indice '${j}'`);
-                        return;
+                        alert("El primer vocal en '".concat(sin_acentos, "' es '").concat(vocales[k], "' en la indice '").concat(j, "'"));
+                        break;
                     }
                 }
             }
