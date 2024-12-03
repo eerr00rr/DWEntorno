@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<title>tabla_ordenar</title>
+	<script src="ord_tabla.js"></script>
+	<style type="text/css">
+		ul {
+			width: 19em;
+			list-style: none;
+			overflow: hidden;
+		}
+
+		#contenedor {
+			height: auto;
+			width: 25em;
+			border: 2px ridge #808080;
+			margin: 1em auto;
+		}
+
+		li {
+			width: 12em;
+			float: left;
+			border: 1px solid #444;
+			margin-bottom: 5px;
+			text-align: center;
+			padding: 5px;
+			border-radius: 2px;
+			cursor: pointer;
+		}
+
+		li:hover {
+			background-color: grey;
+		}
+
+		li.seleccionado {
+			background-color: blue;
+		}
+
+		#imagenes {
+			width: 5em;
+			height: 2em;
+			float: right;
+		}
+
+		#imagenes img {
+			width: 2em;
+			height: 2em;
+			cursor: pointer;
+		}
+
+		#imagenes.oculto {
+			display: none;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div id="contenedor">
+		<ul>
+			<li>HTML 5 </li>
+			<div id="imagenes"><img src="flecha-hacia-abajo.png" alt=""><img src="flecha-hacia-arriba.png" alt=""></div>
+			<li>CSS 3</li>
+			<li>JavaScript</li>
+			<li>AJAX</li>
+			<li>PHP</li>
+			<li>MYSQL</li>
+		</ul>
+	</div>
+
+</body>
+
+</html>
