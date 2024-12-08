@@ -80,7 +80,6 @@ for (let i = 0; i < priceInputvalue.length; i++) {
                 }
             }
             else {
-
                 // Update price inputs and range progress
                 priceInputvalue[0].value = minVal;
                 priceInputvalue[1].value = maxVal;
