@@ -1,40 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        form * {
-            margin-bottom: 10px;
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Exercici 6.2</title>
+
+    <style type="text/css">
+        body {
+            font-family: arial, helvetica;
+        }
+
+        form {
+            width: 800px;
+            margin: 20px auto 0 auto;
+        }
+
+        label {
+            float: left;
+            width: 200px;
+            font-weight: bold;
+        }
+
+        input[type="submit"] {
+            margin: 20px 0 0 200px;
+            display: inline;
+        }
+
+        input[type="button"] {
+            margin: 20px 0 0 100px;
+            display: inline;
         }
     </style>
 </head>
 
 <body>
-    <form action="" id="formulario" name="formulario">
-        <label for="dni">Dni:</label>
-        <input type="text" name="dni" id="">
-        <br>
-        <label for="edad">Edad</label>
-        <input type="number" name="edad" id="">
-        <br>
-        <label for="telef">Telefono</label>
-        <input type="text" name="telef" id="">
-        <br>
-        <label for="correo">Correo</label>
-        <input type="email" name="correo" id="">
-        <br>
-        <label for="sel">Select localitat</label>
-        <select name="sel" id="">
-            <option value="ali">Alicante</option>
-            <option value="cas">Castellon</option>
-            <option value="val">Valencia</option>
-        </select>
-        <br>
-        <input type="reset" value="Empezar de nuevo">
-        <input type="submit" value="Enviar">
+    <form action="servidor.php" method="POST" id="registro" name="nRegistro">
+        <fieldset>
+            <legend>Información de contacto</legend>
+            <label>Nombre *:</label><input type="text" name="nombre" size="30"></input></br></br>
+            <label>Edad:</label><input type="text" name="edad" size="3"></input></br></br>
+            <label>DNI:</label><input type="text" name="dni" size="9"></input>--<input type="text" name="letradni"
+                maxlength="1" size="1"></input></br></br>
+
+            <label>Direccion *:</label><input type="text" name="direccion" size="30"></input></br></br>
+            <label>Provincia :</label><select name="provincia">
+                <option value="">Provincia</option>
+                <option value="A">Alicante</option>
+                <option value="CS">Castellón</option>
+                <option value="V">Valencia</option>
+            </select></br></br>
+            <label>Localidad :</label><select name="localidad" disabled="disabled"></select></br></br>
+            <label>Codigo Postal *:</label><input type="text" name="codigopostal" size="5"></input></br></br>
+            <label>Telefono de contacto:</label><input type="text" name="telefono" size="9"></input></br></br>
+            <label>Correo electronico :</label><input type="text" name="email" size="50"></input></br></br>
+            <label>Repita su correo electronico :</label><input type="text" name="repeatemail"
+                size="50"></input></br></br>
+            <input type="submit" value="Enviar los datos"><input type="button" id="limpiar" value="Empezar de nuevo">
+        </fieldset>
     </form>
     <script src="script.js"></script>
 </body>

@@ -1,11 +1,23 @@
-const form1 = document.forms['formulario'];
-const area = form1.elements['areaTexto'];
-const p1 = document.querySelector('#p1');
+const area = document.querySelector('#texto');
+const p1 = document.createElement('p');
 
 area.addEventListener('input', e => {
-    if (area.value.length !== 100) {
-        p1.textContent = 'Puedes escribir mas';
-    } else {
-        p1.textContent = 'Has llegado al limite';
-    }
+    let respuesta = validarArea();
+
+    p1.textContent = respuesta;
+    document.body.appendChild(p1);
 });
+
+function validarArea() {
+    let texto = '';
+    let areaStr = area.value;
+    let charLen = area.value.length;
+
+    if (charLen < 100) {
+        texto += 'Puedes escribir mas caracteres: ' + charLen;
+    } else {
+        area.value = areaStr.slice(0, 100);
+        texto += 'Has llegado al limite: 100';
+    }
+    return texto;
+}
