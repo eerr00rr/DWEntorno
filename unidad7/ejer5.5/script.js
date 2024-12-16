@@ -1,155 +1,177 @@
 const formulario = document.querySelector('#registro');
-const nombre = formulario.elements['nombre'];
-const edad = formulario.elements['edad'];
-const dni = formulario.elements['dni'];
-const letradni = formulario.elements['letradni'];
-const direccion = formulario.elements['direccion'];
-const provincia = formulario.elements['provincia'];
-const localidad = formulario.elements['localidad'];
-const codigopostal = formulario.elements['codigopostal'];
-const telefono = formulario.elements['telefono'];
-const email = formulario.elements['email'];
-const repeatemail = formulario.elements['repeatemail'];
+const { nombre, edad, dni, letradni, direccion, provincia, localidad, codigopostal, telefono, email, repeatemail } = formulario.elements;
 
 const camposObligatorios = [nombre, direccion, codigopostal];
-camposObligatorios.forEach(value => {
-    value.addEventListener('blur', obligatoryMessage);
-});
+const camposRegex = [dni, letradni, edad, telefono, email];
+const camposNumeros = [dni, edad, codigopostal, telefono];
+const elementos = [nombre, edad, dni, letradni, direccion, provincia, localidad, codigopostal, telefono, email, repeatemail];
 
 const provincias = {
     'A': ['Alicante', 'Elche', 'Benidorm'],
     'CS': ['Castellon de la Plana', 'Villareal', 'Onda'],
     'V': ['Valencia', 'Gandia', 'Alzira']
-}
+};
 
-const elementos = [
-    nombre, edad, dni,
-    letradni, direccion, provincia,
-    localidad, codigopostal, telefono,
-    email, repeatemail
-];
+const divErrores = document.createElement('div');
+document.body.appendChild(divErrores);
 
-function hasErrors(campo, bool) {
-    elementos[campo] = bool ? "Error" : "";
-}
-
-elementos.forEach(element => {
-    element.addEventListener('focus', e => {
-        e.target.style.backgroundColor = 'green';
-        e.target.style.border = 'solid black 2px';
-    });
-    element.addEventListener('blur', e => {
-        e.target.style.backgroundColor = 'white';
-        e.target.style.border = 'solid 1px grey';
-    });
-});
-
-provincia.addEventListener('change', e => {
-    localidad.innerHTML = '';
-    for (const key in provincias) {
-        if (key === e.target.value) {
-            listarLocalidades(provincias[key]);
-            return;
+camposNumeros.forEach(field => {
+    field.addEventListener('keypress', (e) => {
+        if (!Number.parseInt(e.key)) {
+            e.preventDefault();
         }
-        localidad.disabled = true;
-    }
+    });
 });
 
-function listarLocalidades(array) {
-    localidad.disabled = false;
-    array.forEach(element => {
-        let option = document.createElement('option');
-        option.value = element.toLowerCase();
-        option.textContent = element;
-        localidad.appendChild(option);
-    });
-}
+camposObligatorios.forEach(field => {
+    field.addEventListener('blur', obligatoryMessage);
+});
 
-const camposComprobar = [dni, edad, telefono, email];
-formulario.addEventListener('submit', e => {
+formulario.addEventListener('submit', (e) => {
     e.preventDefault();
 
     let errores = {};
 
-    camposComprobar.forEach(element => {
-        let error;
-        if (element.name === 'dni') {
-            error = comprobarCampo(element.name, element.value.trim() + letradni.value.trim());
-        } else {
-            error = comprobarCampo(element.name, element.value.trim());
-        }
-        if (error.length !== 0) {
-            errores[element.name] = error;
+    camposRegex.forEach(field => {
+        const error = comprobarCampo(field.name, field.value.trim());
+        if (error) {
+            errores[field.name] = error;
+            tieneError(field);
         }
     });
-    for (const key in camposComprobar) {
-        let error = comprobarCampo(key, camposComprobar[key]);
-        if (error.length !== 0) {
-            errores[key] = error;
+
+    camposObligatorios.forEach(field => {
+        if (field.value.trim() === '') {
+            errores[field.name] = `El campo ${field.name} es obligatorio`;
+            tieneError(field);
         }
-    }
+    });
 
     if (Object.keys(errores).length === 0) {
         alert('Formulario sin errores, adios');
         e.target.submit();
     } else {
-        alert('Errores en los siguientes campos\n\n' + listarErrores(errores));
+        divErrores.innerHTML = Object.values(errores).join('<br>');
     }
 });
 
-function comprobarCampo(key, value) {
-    switch (key) {
+function tieneError(field) {
+    field.style.backgroundColor = 'red';
+    field.style.border = '2px solid black';
+}
+
+elementos.forEach(field => {
+    field.addEventListener('focus', (e) => {
+        e.target.style.backgroundColor = 'green';
+        e.target.style.border = '2px solid black';
+    });
+
+    field.addEventListener('blur', (e) => {
+        e.target.style.backgroundColor = 'white';
+        e.target.style.border = '1px solid grey';
+    });
+
+    field.addEventListener('change', (e) => {
+        console.log(e.target);
+        divErrores.innerHTML = "";
+        if (camposRegex.includes(e.target)) {
+            let error = comprobarCampo(e.target.name, e.target.value.trim());
+            if (error) {
+                divErrores.innerHTML = error;
+                setTimeout(() => e.target.focus(), 0);
+            }
+        }
+    });
+});
+
+provincia.addEventListener('change', (e) => {
+    localidad.innerHTML = '';
+    const localities = provincias[e.target.value];
+    if (localities) {
+        listarLocalidades(localities);
+        localidad.disabled = false;
+    } else {
+        localidad.disabled = true;
+    }
+});
+
+function listarLocalidades(localities) {
+    localities.forEach(locality => {
+        const option = document.createElement('option');
+        option.value = locality.toLowerCase();
+        option.textContent = locality;
+        localidad.appendChild(option);
+    });
+}
+
+function comprobarCampo(name, value) {
+    let regex, errorMessage;
+
+    switch (name) {
         case 'dni':
-            regex = /^$|^\d{8}[A-Z]$/;
+            regex = /^$|^\d{8}$/;
+            errorMessage = 'debe tener exactamente 8 dígitos';
+            break;
+        case 'letradni':
+            regex = /^$|^[A-Za-z]$/;
+            errorMessage = 'debe tener una letra';
             break;
         case 'edad':
             regex = /^$|^(?:[1-9]|[1-9][0-9])$/;
+            errorMessage = 'debe ser un número entre 1 y 99';
             break;
         case 'telefono':
-            regex = /^$|^\d{1,9}$/;
+            regex = /^$|^\d{9}$/;
+            errorMessage = 'debe tener exactamente 9 dígitos';
             break;
         case 'email':
             regex = /^$|^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            errorMessage = 'debe tener un formato válido (ejemplo@test.com)';
             break;
+        default:
+            return '';
     }
-    return regex.test(value) ? "" : `${key}: ${value}`;
+
+    return regex.test(value) ? '' : `${name}: ${errorMessage}`;
 }
 
-function listarErrores(obj) {
-    let str = "";
-    for (const key in obj) {
-        str += obj[key] + "\n";
-    }
-    return str;
+function listarErrores(errors) {
+    return Object.values(errors).join('\n');
 }
 
 function obligatoryMessage(e) {
-    let span;
-    let inputName = e.target.name;
+    let span = e.target.nextElementSibling;
+    const inputName = e.target.name;
 
-    if (spanExists(e.target.nextElementSibling)) {
-        span = e.target.nextElementSibling;
-    } else {
+    if (!span || span.nodeName !== 'SPAN') {
         span = document.createElement('span');
+        e.target.after(span);
     }
+
     if (e.target.value.trim() === '') {
-        span.textContent = `    El campo ${inputName} es obligatory`;
+        span.textContent = `\tEl campo ${inputName} es obligatorio`;
         span.style.color = 'red';
-        formulario.appendChild(span);
-        formulario.elements[0].insertBefore(span, e.target.nextElementSibling);
     } else {
         span.remove();
     }
 }
 
-function spanExists(element) {
-    return element.nodeName === 'SPAN' ? true : false;
-}
+document.querySelector('#limpiar').addEventListener('click', () => {
+    elementos.forEach(field => {
+        field.style.backgroundColor = 'white';
+        field.style.border = '1px solid grey';
+    });
 
-const limpiar = document.querySelector('#limpiar').addEventListener('click', e => {
+    camposObligatorios.forEach(field => {
+        const span = field.nextElementSibling;
+        if (span && span.nodeName === 'SPAN') {
+            span.remove();
+        }
+    });
+
     localidad.innerHTML = '';
     formulario.reset();
     nombre.focus();
 });
 
-nombre.focus();
+window.addEventListener('load', e => { nombre.focus() });
