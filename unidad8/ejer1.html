@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const user = {
+            id: 101,
+            name: "John Doe",
+            address: {
+                city: "New York",
+                postalCode: "10001",
+            },
+            scores: [80, 90, 100],
+        };
+
+        const { id, name, address: { city }, scores: [...rest] } = user;
+
+        console.log(id);
+        console.log(name);
+        console.log(city);
+        console.log(...scores);
+    </script>
+</body>
+
+</html>
