@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Student {
+            constructor(name, grades) {
+                this.name = name;
+                this.grades = grades;
+            }
+
+            averageGrade() {
+                const sum = this.grades.reduce((acc, grade) => acc + grade, 0);
+                return sum / this.grades.length;
+            }
+        }
+
+        const studentSet = new Set();
+
+        function addStudentToSet(student) {
+            if (![...studentSet].some((s) => s.name === student.name)) {
+                studentSet.add(student);
+            } else {
+                console.log(`Student with name ${student.name} already exists!`);
+            }
+        }
+
+        // Add students
+        addStudentToSet(new Student("Alice", [90, 80, 85]));
+        addStudentToSet(new Student("Bob", [70, 75, 80]));
+        addStudentToSet(new Student("Alice", [95, 90, 85]));
+
+        const studentMap = new Map();
+
+        studentSet.forEach((student) => {
+            studentMap.set(student.name, student.averageGrade());
+        });
+
+        console.log("Student Map:");
+        studentMap.forEach((avg, name) => {
+            console.log(`${name}: ${avg}`);
+        });
+    </script>
+</body>
+
+</html>
