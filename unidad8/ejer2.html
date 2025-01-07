@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const products = [
+            { name: "Laptop", price: 1200 },
+            { name: "Phone", price: 800 },
+            { name: "Tablet", price: 600 },
+            { name: "Headphones", price: 200 },
+        ];
+
+        const filteredProducts = products.filter(product => product.price > 500).map(product => product.name);
+        console.log(filteredProducts);
+    </script>
+</body>
+
+</html>

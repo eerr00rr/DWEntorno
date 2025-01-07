@@ -20,11 +20,12 @@
         };
 
         const { id, name, address: { city }, scores: [...rest] } = user;
+        const last = rest.pop();
 
         console.log(id);
         console.log(name);
         console.log(city);
-        console.log(...scores);
+        console.log(last);
     </script>
 </body>
 
