@@ -1,7 +1,7 @@
 const SERVER = 'https://jsonplaceholder.typicode.com'
 const tbody = document.querySelector('tbody')
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
   document.getElementById('form-show').addEventListener('submit', (event) => {
     event.preventDefault();
     let idUser = document.getElementById('id-usuario').value
@@ -9,7 +9,7 @@ window.addEventListener('load', function() {
       alert('Debes introducir un número')
     } else {
       getPosts(idUser)
-        .then(function(posts) {
+        .then(function (posts) {
           tbody.innerHTML = '' // borramos el contenido de la tabla
           posts.forEach(post => {
             const newPost = document.createElement('tr')
@@ -22,7 +22,7 @@ window.addEventListener('load', function() {
           })
           document.getElementById('num-posts').textContent = posts.length
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.error(error)
         })
     }
@@ -30,7 +30,7 @@ window.addEventListener('load', function() {
 })
 
 function getPosts(idUser) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     let peticion = new XMLHttpRequest()
     peticion.open('GET', SERVER + '/posts?userId=' + idUser)
     peticion.send()

@@ -1,7 +1,7 @@
 const SERVER = 'https://jsonplaceholder.typicode.com'
 const tbody = document.querySelector('tbody')
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
   document.getElementById('form-show').addEventListener('submit', (event) => {
     event.preventDefault();
     let idUser = document.getElementById('id-usuario').value
@@ -31,7 +31,7 @@ function getPosts(idUser, callback) {
   const peticion = new XMLHttpRequest()
   peticion.open('GET', SERVER + '/posts?userId=' + idUser)
   peticion.send()
-  peticion.addEventListener('load', function() {
+  peticion.addEventListener('load', function () {
     if (peticion.status === 200) {
       callback(JSON.parse(peticion.responseText));
     } else {
