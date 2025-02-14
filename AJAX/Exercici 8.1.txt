@@ -1,0 +1,16 @@
+    <form action="servidor.php" method="POST" id="registro" name="nRegistro">
+        <fieldset>
+            <legend>Información de contacto</legend>
+            <label>Nombre *:</label><input type="text" name="nombre" size="30"></input></br></br>
+            <label>Edad:</label><input type="text" name="edad" size="3"></input></br></br>
+			<label>DNI:</label><input type="text" name="dni" size="9"></input>--<input type="text" name="letradni"  maxlength="1" size="1"></input></br></br>
+			<label>Direccion *:</label><input type="text" name="direccion" size="50"></input></br></br>
+			<label>Provincia :</label><select name="provincia"><option value="">Provincia</option><option value="A">Alicante</option><option value="CS">Castellón</option> <option value="V">Valencia</option></select></br></br>
+			<label>Localidad :</label><select name="localidad" disabled="disabled"></select></br></br>
+			<label>Codigo Postal *:</label><input type="text" name="codigopostal" size="5"></input></br></br>
+			<label>Telefono de contacto:</label><input type="text" name="telefono" size="9"></input></br></br>
+            <label>Correo electronico :</label><input type="text" name="email" size="50"></input></br></br>
+			<label>Repita su correo electronico :</label><input type="text" name="repeatemail" size="50"></input></br></br>
+            <input type="submit" value="Enviar los datos"><input type="button" id="limpiar" value="Empezar de nuevo">
+        </fieldset>
+    </form>

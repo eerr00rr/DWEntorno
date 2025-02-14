@@ -1,0 +1,19 @@
+body {font-family: arial, helvetica;}
+form {
+    width: 800px;
+    margin: 20px auto 0 auto;
+}
+label {
+    float: left;
+    width: 200px;
+    font-weight: bold;
+}
+input[type="submit"] {
+    margin: 20px 0 0 200px;
+    display: inline;
+}
+
+input[type="button"] {
+    margin: 20px 0 0 100px;
+    display: inline;
+}
