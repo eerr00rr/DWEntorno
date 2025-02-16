@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Exercici 6.2</title>
+	
+    <style type="text/css">
+    body {font-family: arial, helvetica;}
+    form {
+        width: 800px;
+        margin: 20px auto 0 auto;
+    }
+    label {
+        float: left;
+        width: 200px;
+        font-weight: bold;
+    }
+    input[type="submit"] {
+        margin: 20px 0 0 200px;
+        display: inline;
+    }
+
+    input[type="button"] {
+        margin: 20px 0 0 100px;
+        display: inline;
+    }
+    </style>
+</head>
+
+<body>
+    <form action="servidor.php" method="POST" id="registro" name="nRegistro">
+        <fieldset>
+            <legend>Información de contacto</legend>
+            <label>Nombre *:</label><input type="text" name="nombre" size="30"></input></br></br>
+            <label>Edad:</label><input type="text" name="edad" size="3"></input></br></br>
+			<label>DNI:</label><input type="text" name="dni" size="9"></input>--<input type="text" name="letradni"  maxlength="1" size="1"></input></br></br>
+			<label>Direccion *:</label><input type="text" name="direccion" size="50"></input></br></br>
+			<label>Provincia :</label><select name="provincia"><option value="">Provincia</option><option value="A">Alicante</option><option value="CS">Castellón</option> <option value="V">Valencia</option></select></br></br>
+			<label>Localidad :</label><select name="localidad" disabled="disabled"></select></br></br>
+			<label>Codigo Postal *:</label><input type="text" name="codigopostal" size="5"></input></br></br>
+			<label>Telefono de contacto:</label><input type="text" name="telefono" size="9"></input></br></br>
+            <label>Correo electronico :</label><input type="text" name="email" size="50"></input></br></br>
+			<label>Repita su correo electronico :</label><input type="text" name="repeatemail" size="50"></input></br></br>
+            <input type="submit" value="Enviar los datos"><input type="button" id="limpiar" value="Empezar de nuevo">
+        </fieldset>
+    </form>
+    <script>
+        const form = document.getElementById('registro');
+        const {
+            nombre, 
+            edad, 
+            dni,
+            letradni,
+            direccion, 
+            provincia, 
+            localidad, 
+            codigopostal, 
+            telefono,
+            email,
+            repeatemail,
+            limpiar,
+        } = form;
+        const OBLIGATORIOS = [nombre, direccion, codigopostal];
+        
+        // probar datos obligatorios *
+        OBLIGATORIOS.forEach(elemento => {
+            elemento.addEventListener('blur', (e) => {
+                if (e.target.value.length === 0) {
+                    console.log('campo obligatorio');
+                    e.target.style = 'background-color: red;';
+                }
+            });
+        });
+
+        // submit form
+        form.addEventListener('submit', () => {
+            event.preventDefault();
+            const validate = [
+                validateDni(dni.value, letradni.value), 
+                validateEdad(edad.value),
+                validateTelefono(telefono.value),
+            ];
+            
+            if (validate.includes(false)) {
+                console.log('bad');
+            }
+            console.log(validate);
+        });
+
+        function validateDni(num, char) {
+            return /\d{8}/.test(num) && /\D/.test(char);
+        }
+        function validateEdad(num) {
+            return /[1..99]{}/.test(num);
+        }
+        function validateTelefono(num) {
+            return /\d{9}/.test(num);
+        }
+    
+        // reset form
+        limpiar.addEventListener('click', () => {
+            console.log('Reseteando la Consola');
+            form.reset();
+        });
+
+    </script>
+</body>
+</html>
